@@ -25,7 +25,7 @@ const breadcrumbItems: BreadcrumbItem[] = [
         <Head title="Password settings" />
 
         <SettingsLayout>
-            <div class="space-y-6">
+            <div class="">
                 <HeadingSmall
                     title="Update password"
                     description="Ensure your account is using a long, random password to stay secure"
@@ -42,36 +42,36 @@ const breadcrumbItems: BreadcrumbItem[] = [
                         'password_confirmation',
                         'current_password',
                     ]"
-                    class="space-y-6"
+                    class=""
                     v-slot="{ errors, processing, recentlySuccessful }"
                 >
-                    <div class="grid gap-2">
+                    <div class="">
                         <Label for="current_password">Current password</Label>
                         <Input
                             id="current_password"
                             name="current_password"
                             type="password"
-                            class="mt-1 block w-full"
+                            class=""
                             autocomplete="current-password"
                             placeholder="Current password"
                         />
                         <InputError :message="errors.current_password" />
                     </div>
 
-                    <div class="grid gap-2">
+                    <div class="">
                         <Label for="password">New password</Label>
                         <Input
                             id="password"
                             name="password"
                             type="password"
-                            class="mt-1 block w-full"
+                            class=""
                             autocomplete="new-password"
                             placeholder="New password"
                         />
                         <InputError :message="errors.password" />
                     </div>
 
-                    <div class="grid gap-2">
+                    <div class="">
                         <Label for="password_confirmation"
                             >Confirm password</Label
                         >
@@ -79,14 +79,14 @@ const breadcrumbItems: BreadcrumbItem[] = [
                             id="password_confirmation"
                             name="password_confirmation"
                             type="password"
-                            class="mt-1 block w-full"
+                            class=""
                             autocomplete="new-password"
                             placeholder="Confirm password"
                         />
                         <InputError :message="errors.password_confirmation" />
                     </div>
 
-                    <div class="flex items-center gap-4">
+                    <div class="">
                         <Button
                             :disabled="processing"
                             data-test="update-password-button"
@@ -101,7 +101,7 @@ const breadcrumbItems: BreadcrumbItem[] = [
                         >
                             <p
                                 v-show="recentlySuccessful"
-                                class="text-sm text-neutral-600"
+                                class=""
                             >
                                 Saved.
                             </p>

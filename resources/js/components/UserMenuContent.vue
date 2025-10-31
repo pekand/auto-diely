@@ -24,16 +24,16 @@ defineProps<Props>();
 </script>
 
 <template>
-    <DropdownMenuLabel class="p-0 font-normal">
-        <div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+    <DropdownMenuLabel class="">
+        <div class="">
             <UserInfo :user="user" :show-email="true" />
         </div>
     </DropdownMenuLabel>
     <DropdownMenuSeparator />
     <DropdownMenuGroup>
         <DropdownMenuItem :as-child="true">
-            <Link class="block w-full" :href="edit()" prefetch as="button">
-                <Settings class="mr-2 h-4 w-4" />
+            <Link class="" :href="edit()" prefetch as="button">
+                <Settings class="" />
                 Settings
             </Link>
         </DropdownMenuItem>
@@ -41,13 +41,13 @@ defineProps<Props>();
     <DropdownMenuSeparator />
     <DropdownMenuItem :as-child="true">
         <Link
-            class="block w-full"
+            class=""
             :href="logout()"
             @click="handleLogout"
             as="button"
             data-test="logout-button"
         >
-            <LogOut class="mr-2 h-4 w-4" />
+            <LogOut class="" />
             Log out
         </Link>
     </DropdownMenuItem>

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { cn } from '@/lib/utils'
 import { AvatarFallback, type AvatarFallbackProps } from 'reka-ui'
 import { computed, type HTMLAttributes } from 'vue'
 
@@ -16,7 +15,7 @@ const delegatedProps = computed(() => {
   <AvatarFallback
     data-slot="avatar-fallback"
     v-bind="delegatedProps"
-    :class="cn('bg-muted flex size-full items-center justify-center rounded-full', props.class)"
+    :class="props.class"
   >
     <slot />
   </AvatarFallback>

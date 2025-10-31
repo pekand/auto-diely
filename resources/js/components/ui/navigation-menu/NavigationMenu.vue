@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
-import { cn } from '@/lib/utils'
 import { reactiveOmit } from '@vueuse/core'
 import {
   NavigationMenuRoot,
@@ -27,7 +26,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
     data-slot="navigation-menu"
     :data-viewport="viewport"
     v-bind="forwarded"
-    :class="cn('group/navigation-menu relative flex max-w-max flex-1 items-center justify-center', props.class)"
+    :class="props.class"
   >
     <slot />
     <NavigationMenuViewport v-if="viewport" />

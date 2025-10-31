@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { cn } from '@/lib/utils'
 import { ChevronDown } from 'lucide-vue-next'
 import {
   NavigationMenuTrigger,
@@ -24,11 +23,11 @@ const forwardedProps = useForwardProps(delegatedProps)
   <NavigationMenuTrigger
     data-slot="navigation-menu-trigger"
     v-bind="forwardedProps"
-    :class="cn(navigationMenuTriggerStyle(), 'group', props.class)"
-  >
+    :class="navigationMenuTriggerStyle()" 
+  ><!-- TODO: props.class -->
     <slot />
     <ChevronDown
-      class="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
+      class=""
       aria-hidden="true"
     />
   </NavigationMenuTrigger>

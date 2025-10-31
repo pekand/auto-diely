@@ -42,7 +42,7 @@ onUnmounted(() => {
     <AppLayout :breadcrumbs="breadcrumbs">
         <Head title="Two-Factor Authentication" />
         <SettingsLayout>
-            <div class="space-y-6">
+            <div class="">
                 <HeadingSmall
                     title="Two-Factor Authentication"
                     description="Manage your two-factor authentication settings"
@@ -50,11 +50,11 @@ onUnmounted(() => {
 
                 <div
                     v-if="!twoFactorEnabled"
-                    class="flex flex-col items-start justify-start space-y-4"
+                    class=""
                 >
                     <Badge variant="destructive">Disabled</Badge>
 
-                    <p class="text-muted-foreground">
+                    <p class="">
                         When you enable two-factor authentication, you will be
                         prompted for a secure pin during login. This pin can be
                         retrieved from a TOTP-supported application on your
@@ -83,11 +83,11 @@ onUnmounted(() => {
 
                 <div
                     v-else
-                    class="flex flex-col items-start justify-start space-y-4"
+                    class=""
                 >
                     <Badge variant="default">Enabled</Badge>
 
-                    <p class="text-muted-foreground">
+                    <p class="">
                         With two-factor authentication enabled, you will be
                         prompted for a secure, random pin during login, which
                         you can retrieve from the TOTP-supported application on
@@ -96,7 +96,7 @@ onUnmounted(() => {
 
                     <TwoFactorRecoveryCodes />
 
-                    <div class="relative inline">
+                    <div class="">
                         <Form v-bind="disable.form()" #default="{ processing }">
                             <Button
                                 variant="destructive"

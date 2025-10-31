@@ -22,10 +22,10 @@ import { Form, Head } from '@inertiajs/vue3';
             v-bind="store.form()"
             :reset-on-success="['password', 'password_confirmation']"
             v-slot="{ errors, processing }"
-            class="flex flex-col gap-6"
+            class=""
         >
-            <div class="grid gap-6">
-                <div class="grid gap-2">
+            <div class="">
+                <div class="">
                     <Label for="name">Name</Label>
                     <Input
                         id="name"
@@ -40,7 +40,7 @@ import { Form, Head } from '@inertiajs/vue3';
                     <InputError :message="errors.name" />
                 </div>
 
-                <div class="grid gap-2">
+                <div class="">
                     <Label for="email">Email address</Label>
                     <Input
                         id="email"
@@ -54,7 +54,7 @@ import { Form, Head } from '@inertiajs/vue3';
                     <InputError :message="errors.email" />
                 </div>
 
-                <div class="grid gap-2">
+                <div class="">
                     <Label for="password">Password</Label>
                     <Input
                         id="password"
@@ -68,7 +68,7 @@ import { Form, Head } from '@inertiajs/vue3';
                     <InputError :message="errors.password" />
                 </div>
 
-                <div class="grid gap-2">
+                <div class="">
                     <Label for="password_confirmation">Confirm password</Label>
                     <Input
                         id="password_confirmation"
@@ -84,7 +84,7 @@ import { Form, Head } from '@inertiajs/vue3';
 
                 <Button
                     type="submit"
-                    class="mt-2 w-full"
+                    class=""
                     tabindex="5"
                     :disabled="processing"
                     data-test="register-user-button"
@@ -94,11 +94,11 @@ import { Form, Head } from '@inertiajs/vue3';
                 </Button>
             </div>
 
-            <div class="text-center text-sm text-muted-foreground">
+            <div class="">
                 Already have an account?
                 <TextLink
                     :href="login()"
-                    class="underline underline-offset-4"
+                    class=""
                     :tabindex="6"
                     >Log in</TextLink
                 >

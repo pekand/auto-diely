@@ -111,99 +111,99 @@ watch(
 
 <template>
     <Dialog :open="isOpen" @update:open="isOpen = $event">
-        <DialogContent class="sm:max-w-md">
-            <DialogHeader class="flex items-center justify-center">
+        <DialogContent class="">
+            <DialogHeader class="">
                 <div
-                    class="mb-3 w-auto rounded-full border border-border bg-card p-0.5 shadow-sm"
+                    class=""
                 >
                     <div
-                        class="relative overflow-hidden rounded-full border border-border bg-muted p-2.5"
+                        class=""
                     >
                         <div
-                            class="absolute inset-0 grid grid-cols-5 opacity-50"
+                            class=""
                         >
                             <div
                                 v-for="i in 5"
                                 :key="`col-${i}`"
-                                class="border-r border-border last:border-r-0"
+                                class=""
                             />
                         </div>
                         <div
-                            class="absolute inset-0 grid grid-rows-5 opacity-50"
+                            class=""
                         >
                             <div
                                 v-for="i in 5"
                                 :key="`row-${i}`"
-                                class="border-b border-border last:border-b-0"
+                                class=""
                             />
                         </div>
                         <ScanLine
-                            class="relative z-20 size-6 text-foreground"
+                            class=""
                         />
                     </div>
                 </div>
                 <DialogTitle>{{ modalConfig.title }}</DialogTitle>
-                <DialogDescription class="text-center">
+                <DialogDescription class="">
                     {{ modalConfig.description }}
                 </DialogDescription>
             </DialogHeader>
 
             <div
-                class="relative flex w-auto flex-col items-center justify-center space-y-5"
+                class=""
             >
                 <template v-if="!showVerificationStep">
                     <AlertError v-if="errors?.length" :errors="errors" />
                     <template v-else>
                         <div
-                            class="relative mx-auto flex max-w-md items-center overflow-hidden"
+                            class=""
                         >
                             <div
-                                class="relative mx-auto aspect-square w-64 overflow-hidden rounded-lg border border-border"
+                                class=""
                             >
                                 <div
                                     v-if="!qrCodeSvg"
-                                    class="absolute inset-0 z-10 flex aspect-square h-auto w-full animate-pulse items-center justify-center bg-background"
+                                    class=""
                                 >
-                                    <Spinner class="size-6" />
+                                    <Spinner class="" />
                                 </div>
                                 <div
                                     v-else
-                                    class="relative z-10 overflow-hidden border p-5"
+                                    class=""
                                 >
                                     <div
                                         v-html="qrCodeSvg"
-                                        class="flex aspect-square size-full items-center justify-center"
+                                        class=""
                                     />
                                 </div>
                             </div>
                         </div>
 
-                        <div class="flex w-full items-center space-x-5">
-                            <Button class="w-full" @click="handleModalNextStep">
+                        <div class="">
+                            <Button class="" @click="handleModalNextStep">
                                 {{ modalConfig.buttonText }}
                             </Button>
                         </div>
 
                         <div
-                            class="relative flex w-full items-center justify-center"
+                            class=""
                         >
                             <div
-                                class="absolute inset-0 top-1/2 h-px w-full bg-border"
+                                class=""
                             />
-                            <span class="relative bg-card px-2 py-1"
+                            <span class=""
                                 >or, enter the code manually</span
                             >
                         </div>
 
                         <div
-                            class="flex w-full items-center justify-center space-x-2"
+                            class=""
                         >
                             <div
-                                class="flex w-full items-stretch overflow-hidden rounded-xl border border-border"
+                                class=""
                             >
                                 <div
                                     v-if="!manualSetupKey"
-                                    class="flex h-full w-full items-center justify-center bg-muted p-3"
+                                    class=""
                                 >
                                     <Spinner />
                                 </div>
@@ -212,17 +212,17 @@ watch(
                                         type="text"
                                         readonly
                                         :value="manualSetupKey"
-                                        class="h-full w-full bg-background p-3 text-foreground"
+                                        class=""
                                     />
                                     <button
                                         @click="copy(manualSetupKey || '')"
-                                        class="relative block h-auto border-l border-border px-3 hover:bg-muted"
+                                        class=""
                                     >
                                         <Check
                                             v-if="copied"
-                                            class="w-4 text-green-500"
+                                            class=""
                                         />
-                                        <Copy v-else class="w-4" />
+                                        <Copy v-else class="" />
                                     </button>
                                 </template>
                             </div>
@@ -241,10 +241,10 @@ watch(
                         <input type="hidden" name="code" :value="codeValue" />
                         <div
                             ref="pinInputContainerRef"
-                            class="relative w-full space-y-3"
+                            class=""
                         >
                             <div
-                                class="flex w-full flex-col items-center justify-center space-y-3 py-2"
+                                class=""
                             >
                                 <PinInput
                                     id="otp"
@@ -271,11 +271,11 @@ watch(
                                 />
                             </div>
 
-                            <div class="flex w-full items-center space-x-5">
+                            <div class="">
                                 <Button
                                     type="button"
                                     variant="outline"
-                                    class="w-auto flex-1"
+                                    class=""
                                     @click="showVerificationStep = false"
                                     :disabled="processing"
                                 >
@@ -283,7 +283,7 @@ watch(
                                 </Button>
                                 <Button
                                     type="submit"
-                                    class="w-auto flex-1"
+                                    class=""
                                     :disabled="
                                         processing || codeValue.length < 6
                                     "

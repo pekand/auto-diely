@@ -30,8 +30,8 @@ const inputEmail = ref(props.email);
             :reset-on-success="['password', 'password_confirmation']"
             v-slot="{ errors, processing }"
         >
-            <div class="grid gap-6">
-                <div class="grid gap-2">
+            <div class="">
+                <div class="">
                     <Label for="email">Email</Label>
                     <Input
                         id="email"
@@ -39,27 +39,27 @@ const inputEmail = ref(props.email);
                         name="email"
                         autocomplete="email"
                         v-model="inputEmail"
-                        class="mt-1 block w-full"
+                        class=""
                         readonly
                     />
-                    <InputError :message="errors.email" class="mt-2" />
+                    <InputError :message="errors.email" class="" />
                 </div>
 
-                <div class="grid gap-2">
+                <div class="">
                     <Label for="password">Password</Label>
                     <Input
                         id="password"
                         type="password"
                         name="password"
                         autocomplete="new-password"
-                        class="mt-1 block w-full"
+                        class=""
                         autofocus
                         placeholder="Password"
                     />
                     <InputError :message="errors.password" />
                 </div>
 
-                <div class="grid gap-2">
+                <div class="">
                     <Label for="password_confirmation">
                         Confirm Password
                     </Label>
@@ -68,7 +68,7 @@ const inputEmail = ref(props.email);
                         type="password"
                         name="password_confirmation"
                         autocomplete="new-password"
-                        class="mt-1 block w-full"
+                        class=""
                         placeholder="Confirm password"
                     />
                     <InputError :message="errors.password_confirmation" />
@@ -76,7 +76,7 @@ const inputEmail = ref(props.email);
 
                 <Button
                     type="submit"
-                    class="mt-4 w-full"
+                    class=""
                     :disabled="processing"
                     data-test="reset-password-button"
                 >

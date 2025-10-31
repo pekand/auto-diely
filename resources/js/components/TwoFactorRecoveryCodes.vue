@@ -39,10 +39,10 @@ onMounted(async () => {
 </script>
 
 <template>
-    <Card class="w-full">
+    <Card class="">
         <CardHeader>
-            <CardTitle class="flex gap-3">
-                <LockKeyhole class="size-4" />2FA Recovery Codes
+            <CardTitle class="">
+                <LockKeyhole class="" />2FA Recovery Codes
             </CardTitle>
             <CardDescription>
                 Recovery codes let you regain access if you lose your 2FA
@@ -51,12 +51,12 @@ onMounted(async () => {
         </CardHeader>
         <CardContent>
             <div
-                class="flex flex-col gap-3 select-none sm:flex-row sm:items-center sm:justify-between"
+                class=""
             >
-                <Button @click="toggleRecoveryCodesVisibility" class="w-fit">
+                <Button @click="toggleRecoveryCodesVisibility" class="">
                     <component
                         :is="isRecoveryCodesVisible ? EyeOff : Eye"
-                        class="size-4"
+                        class=""
                     />
                     {{ isRecoveryCodesVisible ? 'Hide' : 'View' }} Recovery
                     Codes
@@ -87,19 +87,19 @@ onMounted(async () => {
                         : 'h-0 opacity-0',
                 ]"
             >
-                <div v-if="errors?.length" class="mt-6">
+                <div v-if="errors?.length" class="">
                     <AlertError :errors="errors" />
                 </div>
-                <div v-else class="mt-3 space-y-3">
+                <div v-else class="">
                     <div
-                        ref="recoveryCodeSectionRef"
-                        class="grid gap-1 rounded-lg bg-muted p-4 font-mono text-sm"
+                        ref=""
+                        class=""
                     >
-                        <div v-if="!recoveryCodesList.length" class="space-y-2">
+                        <div v-if="!recoveryCodesList.length" class="">
                             <div
                                 v-for="n in 8"
                                 :key="n"
-                                class="h-4 animate-pulse rounded bg-muted-foreground/20"
+                                class=""
                             ></div>
                         </div>
                         <div
@@ -110,11 +110,11 @@ onMounted(async () => {
                             {{ code }}
                         </div>
                     </div>
-                    <p class="text-xs text-muted-foreground select-none">
+                    <p class="">
                         Each recovery code can be used once to access your
                         account and will be removed after use. If you need more,
                         click
-                        <span class="font-bold">Regenerate Codes</span> above.
+                        <span class="">Regenerate Codes</span> above.
                     </p>
                 </div>
             </div>

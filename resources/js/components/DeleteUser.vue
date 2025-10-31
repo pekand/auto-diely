@@ -24,17 +24,17 @@ const passwordInput = useTemplateRef('passwordInput');
 </script>
 
 <template>
-    <div class="space-y-6">
+    <div class="">
         <HeadingSmall
             title="Delete account"
             description="Delete your account and all of its resources"
         />
         <div
-            class="space-y-4 rounded-lg border border-red-100 bg-red-50 p-4 dark:border-red-200/10 dark:bg-red-700/10"
+            class=""
         >
-            <div class="relative space-y-0.5 text-red-600 dark:text-red-100">
-                <p class="font-medium">Warning</p>
-                <p class="text-sm">
+            <div class="">
+                <p class="">Warning</p>
+                <p class="">
                     Please proceed with caution, this cannot be undone.
                 </p>
             </div>
@@ -52,10 +52,10 @@ const passwordInput = useTemplateRef('passwordInput');
                         :options="{
                             preserveScroll: true,
                         }"
-                        class="space-y-6"
+                        class=""
                         v-slot="{ errors, processing, reset, clearErrors }"
                     >
-                        <DialogHeader class="space-y-3">
+                        <DialogHeader class="">
                             <DialogTitle
                                 >Are you sure you want to delete your
                                 account?</DialogTitle
@@ -69,8 +69,8 @@ const passwordInput = useTemplateRef('passwordInput');
                             </DialogDescription>
                         </DialogHeader>
 
-                        <div class="grid gap-2">
-                            <Label for="password" class="sr-only"
+                        <div class="">
+                            <Label for="password" class=""
                                 >Password</Label
                             >
                             <Input
@@ -83,7 +83,7 @@ const passwordInput = useTemplateRef('passwordInput');
                             <InputError :message="errors.password" />
                         </div>
 
-                        <DialogFooter class="gap-2">
+                        <DialogFooter class="">
                             <DialogClose as-child>
                                 <Button
                                     variant="secondary"

@@ -21,14 +21,14 @@ import { Form, Head } from '@inertiajs/vue3';
             reset-on-success
             v-slot="{ errors, processing }"
         >
-            <div class="space-y-6">
-                <div class="grid gap-2">
+            <div class="">
+                <div class="">
                     <Label htmlFor="password">Password</Label>
                     <Input
                         id="password"
                         type="password"
                         name="password"
-                        class="mt-1 block w-full"
+                        class=""
                         required
                         autocomplete="current-password"
                         autofocus
@@ -37,9 +37,9 @@ import { Form, Head } from '@inertiajs/vue3';
                     <InputError :message="errors.password" />
                 </div>
 
-                <div class="flex items-center">
+                <div class="">
                     <Button
-                        class="w-full"
+                        class=""
                         :disabled="processing"
                         data-test="confirm-password-button"
                     >

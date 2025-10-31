@@ -55,20 +55,20 @@ const codeValue = computed<string>(() => code.value.join(''));
     >
         <Head title="Two-Factor Authentication" />
 
-        <div class="space-y-6">
+        <div class="">
             <template v-if="!showRecoveryInput">
                 <Form
                     v-bind="store.form()"
-                    class="space-y-4"
+                    class=""
                     reset-on-error
                     @error="code = []"
                     #default="{ errors, processing, clearErrors }"
                 >
                     <input type="hidden" name="code" :value="codeValue" />
                     <div
-                        class="flex flex-col items-center justify-center space-y-3 text-center"
+                        class=""
                     >
-                        <div class="flex w-full items-center justify-center">
+                        <div class="">
                             <PinInput
                                 id="otp"
                                 placeholder="○"
@@ -89,14 +89,14 @@ const codeValue = computed<string>(() => code.value.join(''));
                         </div>
                         <InputError :message="errors.code" />
                     </div>
-                    <Button type="submit" class="w-full" :disabled="processing"
+                    <Button type="submit" class="" :disabled="processing"
                         >Continue</Button
                     >
-                    <div class="text-center text-sm text-muted-foreground">
+                    <div class="">
                         <span>or you can </span>
                         <button
                             type="button"
-                            class="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
+                            class=""
                             @click="() => toggleRecoveryMode(clearErrors)"
                         >
                             {{ authConfigContent.toggleText }}
@@ -108,7 +108,7 @@ const codeValue = computed<string>(() => code.value.join(''));
             <template v-else>
                 <Form
                     v-bind="store.form()"
-                    class="space-y-4"
+                    class=""
                     reset-on-error
                     #default="{ errors, processing, clearErrors }"
                 >
@@ -120,15 +120,15 @@ const codeValue = computed<string>(() => code.value.join(''));
                         required
                     />
                     <InputError :message="errors.recovery_code" />
-                    <Button type="submit" class="w-full" :disabled="processing"
+                    <Button type="submit" class="" :disabled="processing"
                         >Continue</Button
                     >
 
-                    <div class="text-center text-sm text-muted-foreground">
+                    <div class="">
                         <span>or you can </span>
                         <button
                             type="button"
-                            class="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
+                            class=""
                             @click="() => toggleRecoveryMode(clearErrors)"
                         >
                             {{ authConfigContent.toggleText }}
