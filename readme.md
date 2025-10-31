@@ -13,7 +13,26 @@ php artisan migrate
 npm install && npm run build
 
 docker stop laravel_app laravel_web laravel_phpmyadmin laravel_mysql
+docker rm -v laravel_app laravel_web laravel_phpmyadmin laravel_mysql
 
 
 http://localhost:8000/
+
+---
+
+docker exec -it laravel_app /bin/bash
+
+artisan make:seeder AdminUserSeeder
+Username: admin@example.com
+Password: secret123
+
+php artisan make:model Car -m
+php artisan make:model Part -m
+php artisan migrate
+
+
+npm install bootstrap
+npm run build
+npm run dev
+npm run watch
 
