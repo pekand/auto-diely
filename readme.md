@@ -1,0 +1,19 @@
+Laravel Version  12.36.1
+PHP Version  8.4.1
+
+docker compose up -d --build
+
+composer create-project laravel/laravel .
+npm install
+
+npm run dev
+php artisan key:generate
+php artisan migrate
+
+npm install && npm run build
+
+docker stop laravel_app laravel_web laravel_phpmyadmin laravel_mysql
+
+
+http://localhost:8000/
+
