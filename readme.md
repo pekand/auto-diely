@@ -43,3 +43,9 @@ npm run dev
 npm run watch
 
 php artisan serve --host=127.0.0.1 --port=8888
+
+---
+
+php artisan serve --host=127.0.0.1 --port=8888
+
+

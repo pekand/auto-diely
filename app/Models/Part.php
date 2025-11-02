@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Part;
+use App\Models\Car;
 
 class Part extends Model
 {
@@ -11,6 +12,6 @@ class Part extends Model
 
     public function car()
     {
-        return $this->belongsTo(Part::class);
+        return $this->belongsTo(Car::class);
     }
 }

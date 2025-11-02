@@ -117,10 +117,12 @@
 .sidebar-heading {
   font-size: .75rem;
 }
-
-.sidebar {
-	min-height: 96vh;	
+@media (min-width: 992px) { // lg breakpoint
+  .sidebar {
+    min-height: 96vh;
+  }
 }
+
 
 /*
  * Navbar

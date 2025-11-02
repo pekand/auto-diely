@@ -1,8 +1,10 @@
+import 'bootstrap';
 import { createInertiaApp } from '@inertiajs/vue3';
 import createServer from '@inertiajs/vue3/server';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createSSRApp, DefineComponent, h } from 'vue';
 import { renderToString } from 'vue/server-renderer';
+import { globalStore } from './lib/store'
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -17,8 +19,10 @@ createServer(
                     `./pages/${name}.vue`,
                     import.meta.glob<DefineComponent>('./pages/**/*.vue'),
                 ),
-            setup: ({ App, props, plugin }) =>
+            setup: ({ App, props, plugin }) =>{
+                globalStore.user = props.initialPage.props.auth?.user ?? null;
                 createSSRApp({ render: () => h(App, props) }).use(plugin),
+            }
         }),
     { cluster: true },
 );
