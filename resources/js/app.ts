@@ -1,4 +1,5 @@
 import 'bootstrap';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../css/app.scss';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';

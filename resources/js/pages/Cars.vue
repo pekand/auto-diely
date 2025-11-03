@@ -1,26 +1,34 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+
+import axios from 'axios'
+import { ref, computed } from 'vue'
 import AppLayout from '@/layouts/AppLayout.vue';
 import { Link, usePage, router} from '@inertiajs/vue3'
 
 const { props } = usePage()
 const cars = ref(props.cars as Array<any>)
 
+
+const search = ref('');
+const filteredCars = computed(() => {
+    if (!search.value) return cars.value;
+    return cars.value.filter(car =>
+        (car.name + " " + car.registration_number + (car.is_registered ? "Yes" : "No")).toLowerCase().includes(search.value.toLowerCase())
+    );
+});
+
 function editCar(id: number) {
     router.get(`/car/${id}`)
 }
 
-function deleteCar(id: number) {
-    if (confirm('Are you sure you want to delete this car?')) {
-      router.delete(`/car/${id}`, {
-        onSuccess: () => {
-           cars.value = cars.value.filter((c: any) => c.id !== id)
-        },
-        onError: (errors) => {
-            console.error(errors);
-        },
-      })
-    }
+async function deleteCar(carId: number) {
+  if (!confirm('Are you sure you want to delete this car?')) return
+  try {
+    await axios.delete(`/car/${carId}`)
+        cars.value = cars.value.filter((c: any) => c.id !== carId)
+  } catch (error: any) {
+    console.error('Failed to delete car:', error.response?.data || error.message)
+  }
 }
 
 </script>
@@ -30,7 +38,13 @@ function deleteCar(id: number) {
 <div class="container mt-5">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>Cars</h2>
+        <div class="d-flex align-items-center gap-2">
         <Link href="/car" class="btn btn-primary">+ Add New Car</Link>
+        <div class="input-group w-auto">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+            <input type="text" v-model="search" id="partsSearch" class="form-control form-control-sm" placeholder="Search parts...">
+        </div>
+        </div>
     </div>
 
     <table class="table table-striped table-bordered align-middle">
@@ -46,7 +60,7 @@ function deleteCar(id: number) {
         </thead>
         <tbody>
 
-            <tr v-for="car in cars" :key="car.id">
+            <tr v-for="car in filteredCars" :key="car.id">
                 <td>{{ car.id }}</td>
                 <td>{{ car.name }}</td>
                 <td>{{ car.registration_number }}</td>

@@ -33,6 +33,11 @@ Route::delete('/car/{id}', [CarController::class, 'destroy'])
 
 Route::get('/parts', [PartController::class, 'index'])
 ->middleware(['auth', 'verified'])->name('parts.index');
-Route::get('part', function () {
-    return Inertia::render('Part');
-})->middleware(['auth', 'verified'])->name('part');
+Route::get('/part/{id}', [PartController::class, 'edit'])
+->middleware(['auth', 'verified'])->name('part');
+Route::post('/part', [PartController::class, 'store'])
+->middleware(['auth', 'verified'])->name('part.create');
+Route::put('/part/{id}', [PartController::class, 'update'])
+->middleware(['auth', 'verified'])->name('part.update');
+Route::delete('/part/{id}', [PartController::class, 'destroy'])
+->middleware(['auth', 'verified'])->name('part.destroy');

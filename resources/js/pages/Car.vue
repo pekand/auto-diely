@@ -1,20 +1,22 @@
 <script setup lang="ts">
 
+import axios from 'axios'
 import { ref, watch } from 'vue'
-import { useForm } from '@inertiajs/vue3'
-import { usePage } from '@inertiajs/vue3'
+import { useForm, usePage, router } from '@inertiajs/vue3'
 
 import AppLayout from '@/layouts/AppLayout.vue';
 
 const { props } = usePage()
-const car = ref(props.car)
+const car = ref(props.car || {name:"", registration_number:"", is_registered:false, parts:[]})
 
-/*const page = usePage()
-const car = page.props.car*/
+const errorMessage = ref(false)
 
 const isEdit = ref(!!(car?.value?.id) || false)
 const currentCarId = ref(car?.value?.id || null)
+
 const addingNewPart = ref(false)
+const editingPart = ref(false)
+const selectedPart = ref(null)
 
 const form = useForm({
   name: car?.value?.name || '',
@@ -22,36 +24,131 @@ const form = useForm({
   is_registered: car?.value?.is_registered == 1 || false,
 })
 
-function submit() {
+const formPart = useForm({
+  name: '',
+  serialnumber: '',
+  car_id: 0,
+})
+
+async function submit() {
     if (isEdit.value && currentCarId.value) {
-    form.put(`/car/${currentCarId.value}`, {
-      onSuccess: (page) => {
-        console.log('Car updated:', page?.props?.car)
-      },
-    })
-  } else {
-      form.post('/car', {
-        onSuccess: (page) => {
-          const newCar = page?.props?.car
-          console.log(newCar);
-          if (newCar) {
-              car.parts = newCar.parts
-              isEdit.value = true
-              currentCarId.value = newCar.id
-              form.name = newCar.name
-              form.registration_number = newCar.registration_number
-              form.is_registered = newCar.is_registered
+        try {
+            errorMessage.value = "";
+
+            const payload = {
+              name: form.name,
+              registration_number: form.registration_number,
+              is_registered: form.is_registered,
             }
-        },
-        onError: (errs) => {
-          console.error(errs)
+
+            await axios.put(`/car/${currentCarId.value}`, payload)
+
+        } catch (error: any) {
+            errorMessage.value = ('Failed to update car:', error.response?.data?.message || error.message);
         }
-      })
+
+    } else {
+        try {
+            errorMessage.value = "";
+            const payload = {
+              name: form.name,
+              registration_number: form.registration_number,
+              is_registered: form.is_registered,
+            }
+
+            const response =  await axios.post(`/car`, payload)
+            isEdit.value = true
+            currentCarId.value = response.data.car_id
+
+        } catch (error: any) {
+            errorMessage.value = ('Failed to add new car:', error.response?.data?.message || error.message)
+        }
+
+
     }
 }
 
 function toggleNewPart() {
-  addingNewPart.value = !addingNewPart.value
+  formPart.car_id = currentCarId.value
+  formPart.name = ""
+  formPart.serialnumber = ""
+  selectedPart.value = null
+  editingPart.value = false;
+  addingNewPart.value = true;
+}
+
+function editPart(part) {
+    selectedPart.value = part
+    addingNewPart.value = false;
+    editingPart.value = true;
+    formPart.car_id = currentCarId.value
+    formPart.name = part.name
+    formPart.serialnumber = part.serialnumber
+}
+
+async function submitPart() {
+    if (addingNewPart.value) {
+        try {
+            errorMessage.value = "";
+            const payload = {
+              name: formPart.name,
+              serialnumber: formPart.serialnumber,
+              car_id: currentCarId.value,
+            }
+
+            const response = await axios.post(`/part`, payload)
+            car.value.parts.push({
+                id: response.data.part_id,
+                name: formPart.name,
+                serialnumber: formPart.serialnumber,
+                car_id: currentCarId.value,
+            })
+
+            addingNewPart.value = false
+            editingPart.value = false
+            formPart.name = "";
+            formPart.serialnumber = "";
+
+        } catch (error: any) {
+            errorMessage.value = ('Failed to add new part:', error.response?.data?.message || error.message)
+        }
+      } 
+
+  if (editingPart.value) {
+     try {
+        errorMessage.value = "";
+        const part_id = selectedPart.value.id
+        const payload = {
+          name: formPart.name,
+          serialnumber: formPart.serialnumber,
+          car_id: currentCarId.value,
+        }
+
+        await axios.put(`/part/${part_id}`, payload)
+
+        selectedPart.value.name = formPart.name
+        selectedPart.value.serialnumber = formPart.serialnumber
+        addingNewPart.value = false
+        editingPart.value = false
+        formPart.name = "";
+        formPart.serialnumber = "";
+
+      } catch (error: any) {
+        errorMessage.value = ('Failed to update part:', error.response?.data?.message || error.message)
+      }
+  }
+}
+
+async function deletePart(partId: number) {
+  if (!confirm('Are you sure you want to delete this part?')) return
+
+  try {
+    errorMessage.value = "";
+    await axios.delete(`/part/${partId}`)
+    car.value.parts = car.value.parts.filter((p: any) => p.id !== partId)
+  } catch (error: any) {
+    errorMessage.value = ('Failed to delete part:', error.response?.data?.message || error.message)
+  }
 }
 
 </script>
@@ -61,6 +158,10 @@ function toggleNewPart() {
         <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>{{ isEdit ? 'Edit car' : 'Add new car' }}</h2>
+        </div>
+
+        <div v-if="errorMessage" class="alert alert-danger" role="alert">
+            {{ errorMessage }}
         </div>
 
         <form @submit.prevent="submit" class="p-4 border rounded bg-light">
@@ -86,7 +187,7 @@ function toggleNewPart() {
                   class="form-control"
                   id="registration_number"
                   placeholder="e.g. TOY-123"
-                  required
+                  :required="form.is_registered"
                 />
             </div>
 
@@ -113,19 +214,37 @@ function toggleNewPart() {
                 <button @click="toggleNewPart" class="btn btn-success">+ Add New Part</button>
             </div>
 
-            <div v-if="addingNewPart" class="pb-4">
-                <form action="{{ route('parts.store') }}" method="POST" class="p-4 border rounded bg-light mt-4">
+            <div v-if="addingNewPart || editingPart" class="pb-4">
+                <form @submit.prevent="submitPart" class="p-4 border rounded bg-light mt-4">
+                    <input id="car_id" name="car_id" v-model="formPart.car_id" type="hidden" :value="currentCarId" />
                     <div class="mb-3">
                         <label for="name" class="form-label">Part name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="e.g. Brake Disc" required>
+                        <input
+                          v-model="formPart.name"
+                          type="text"
+                          class="form-control"
+                          id="name"
+                          name="name"
+                          placeholder="e.g. Brake Disc"
+                          required
+                        />
                     </div>
 
                     <div class="mb-3">
                         <label for="serialnumber" class="form-label">Serial number</label>
-                        <input type="text" class="form-control" id="serialnumber" name="serialnumber" placeholder="e.g. BD-12345" required>
+                        <input
+                          v-model="formPart.serialnumber"
+                          type="text"
+                          class="form-control"
+                          id="serialnumber"
+                          name="serialnumber"
+                          placeholder="e.g. BD-12345"
+                          required
+                        />
                     </div>
 
-                    <button type="submit" class="btn btn-success">Add Part</button>
+                    <button v-if="addingNewPart" type="submit" class="btn btn-success">Add Part</button>
+                    <button v-if="editingPart" type="submit" class="btn btn-success">Update Part</button>
                 </form>
             </div>
 
@@ -145,11 +264,10 @@ function toggleNewPart() {
                         <td>{{ part.serialnumber }}</td>
                         <td class="text-center">
                             <button type="submit" class="btn btn-sm btn-warning me-1"
-                                    onclick="">
+                                    @click="editPart(part)">
                                     Edit
                             </button>
-                            <button type="submit" class="btn btn-sm btn-danger"
-                                    onclick="return confirm('Are you sure you want to delete this part?')">
+                            <button @click="deletePart(part.id)" type="submit" class="btn btn-sm btn-danger">
                                     Delete
                             </button>
                         </td>

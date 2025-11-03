@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Car;
-use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+
+use App\Models\Car;
 
 class CarController extends Controller
 {
@@ -29,7 +30,7 @@ class CarController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'registration_number' => 'required|string|max:100',
+            'registration_number' => 'nullable|string|max:100',
             'is_registered' => 'nullable',
         ]);
 
@@ -37,10 +38,9 @@ class CarController extends Controller
 
         $car = Car::create($data);
 
-        $car->load('parts');
-
-        return Inertia::render('Car', [
-            'car' => $car
+        return response()->json([
+            'success' => true,
+            'car_id' => $car->id,
         ]);
     }
 
@@ -50,7 +50,7 @@ class CarController extends Controller
 
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'registration_number' => 'required|string|max:100',
+            'registration_number' => 'nullable|string|max:100',
             'is_registered' => 'nullable',
         ]);
 
@@ -59,8 +59,8 @@ class CarController extends Controller
         $car->update($data);
         $car->refresh();
 
-        return Inertia::render('Car', [
-            'car' => $car
+        return response()->json([
+            'success' => true,
         ]);
     }
 
@@ -68,6 +68,8 @@ class CarController extends Controller
     {
         $car = Car::findOrFail($id);
         $car->delete();
-        return redirect()->route('cars.index')->with('success', 'Record deleted successfully.');
+        return response()->json([
+            'success' => true,
+        ]);
     }
 }
