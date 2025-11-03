@@ -137,19 +137,15 @@ The app uses MySQL. Default Docker Compose sets the following environment variab
 *Placeholders — replace with your screenshots in the repo when ready:*
 
 
-- `images/login.png` — Login page
-
-- `images/cars-list.png` — Cars list
-
-- `images/parts-list.png` — Parts list
-
-- `images/create-car.png` — Create car form
-
-- `images/create-part.png` — Create part form
-
-- `images/edit-part.png` — Edit part form
-
-- `images/dashboard.png` — Dashboard
+<p align="center">
+  <img src="images/login.png" alt="Login page" width="400">
+  <img src="images/cars-list.png" alt="Cars list" width="400">
+  <img src="images/parts-list.png" alt="Parts list" width="400">
+  <img src="images/create-car.png" alt="Create car form" width="400">
+  <img src="images/create-part.png" alt="Create part form" width="400">
+  <img src="images/edit-part.png" alt="Edit part form" width="400">
+  <img src="images/dashboard.png" alt="Dashboard" width="400">
+</p>
 
 
 
