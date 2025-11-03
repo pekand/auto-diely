@@ -30,6 +30,22 @@ Demo application for a technical interview: a simple car and parts inventory sys
 
 ## Quick setup (Docker)
 
+0. starting the application 
+
+```bash
+
+./run.sh
+
+```
+
+using the ./run.sh script, which builds the containers, installs Composer and npm dependencies, and builds the application in a single step. Then open application in browser.
+
+```text
+
+	[http://localhost:8000](http://localhost:8000)
+
+```
+
 
 1. Clone the repository
 
@@ -42,7 +58,7 @@ cd auto-diely
 ```
 
 
-2. Copy environment file and adjust settings
+2. Copy environment file
 
 
 ```bash
@@ -71,17 +87,17 @@ docker compose up -d --build
 
 # run commands inside the php/app container, for example:
 
-docker compose exec app bash
-
-composer install
-
+docker exec -it laravel_app /bin/bash
+cp .env.example .env
 php artisan key:generate
-
+composer install
 php artisan migrate --seed
-
 npm install
-
 npm run build
+
+# or run old above with this install commands:
+
+docker exec -it laravel_app /var/www/install.sh
 
 exit
 
@@ -97,6 +113,11 @@ exit
 
 ```
 
+6. CLEANING removing containers and cleaning up is done using the clean.sh script.
+
+```bash
+./clean.sh
+```
 
 ## Environment / Database
 
@@ -128,7 +149,7 @@ The app uses MySQL. Default Docker Compose sets the following environment variab
 
 - `database/` — migrations and seeders
 
-- `docker/` and `docker-compose.yml` — container setup
+- `docker-compose.yml` — container setup
 
 
 ## Screenshots
@@ -156,15 +177,15 @@ The app uses MySQL. Default Docker Compose sets the following environment variab
 
 - Stop containers: `docker compose down`
 
-- Run artisan inside container: `docker compose exec app php artisan <cmd>`
+- Run artisan inside container: `docker compose exec laravel_app php artisan <cmd>`
 
-- Run npm inside container: `docker compose exec app npm run dev` or `npm run build`
+- Run npm inside container: `docker compose exec laravel_app npm run build`
 
 
 ## Notes for interview/demo
 
 
-- This is intentionally small and focused — highlight authentication flow, Eloquent relationships (Car -> Parts), and le CRUD UI.
+- This is intentionally small and focused — highlight authentication flow, Eloquent relationships (Car -> Parts)
 
 - Point out the Docker setup that makes the app easy to run locally.
 
