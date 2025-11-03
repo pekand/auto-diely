@@ -44,6 +44,9 @@ using the ./run.sh script, which builds the containers, installs Composer and np
 
 	[http://localhost:8000](http://localhost:8000)
 
+	Default username: admin@example.com
+	Default password: secret123
+
 ```
 
 
